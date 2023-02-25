@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import jwt_decode from 'jwt-decode';
+import Routing from './Routing';
+import Api from './Api';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+	const [user, setUser] = useState(localStorage.token &&
+							jwt_decode(localStorage.getItem("token")).user);
+	const [company, setCompany] = useState(localStorage.getItem("company"));
+
+	const handleLogin = (token) => {
+		localStorage.setItem("token", token);
+		setUser(jwt_decode(token).user);
+		Api.token = token;
+	};
+
+	return (
+		<div className="App">
+			<Routing user={user}
+					company={company} />
+		</div>
+	);
+};
 
 export default App;
