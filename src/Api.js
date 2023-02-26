@@ -41,7 +41,12 @@ class Api {
     static async addCompany(data) {
         const res = await this.request('companies/new', data, 'post');
         return res.company;
-    }
+    };
+
+    static async addUser(data, companyCode) {
+        const res = await this.request(`users/create/${companyCode}`, data, 'post');
+        return res.user;
+    };
 };
 
 Api.token = localStorage.getItem("token");

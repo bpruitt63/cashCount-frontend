@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Container } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 import Api from './Api';
 import Home from './Home';
@@ -17,11 +18,13 @@ function App() {
 	};
 
 	return (
-		<div className="App">
-			<Home user={user}
-					company={company}
-					handleLogin={handleLogin} />
-		</div>
+		<Container>
+			<div className="App">
+				<Home user={user}
+						company={company}
+						handleLogin={handleLogin} />
+			</div>
+		</Container>
 	);
 };
 

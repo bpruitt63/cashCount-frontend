@@ -1,31 +1,77 @@
 import React, {useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { useHandleChange, useErrors } from './hooks';
+import { useHandleChange, useErrors, useToast } from './hooks';
 import Errors from './Errors';
 import Api from './Api';
 
-function NewUserForm() {
+function NewUserForm({company}) {
 
     const initialState = {id: '', firstName: '', lastName: '',
                         email: '', password: ''};
-    const [data, handleChange] = useHandleChange(initialState);
-    const initialSwitch = {admin: false, active: true};
+    const [data, handleChange, setData] = useHandleChange(initialState);
+    const initialSwitch = {admin: false, active: true, emailReceiver: false};
     const [switches, setSwitch] = useState(initialSwitch);
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
+    const [message, toast] = useToast();
 
     const handleSwitch = (field) => {
         setSwitch({...switches, [field]: !switches[field]});
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setApiErrors({});
+        if (!validate) return false;
+
+        try {
+            const newUser = compile();
+            await Api.addUser(newUser, company.companyCode);
+            setData(initialState);
+            toast('User added');
+        } catch (er) {
+            getApiErrors(er);
+            setData(initialState);
+        };
+    };
+
+    const validate = () => {
+        const err = {};
+        if (switches.admin) {
+            if (!data.email || !data.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
+                err.email = "Must be valid email address";
+            };
+            if (!data.pwd || (data.pwd.length < 6 || data.pwd.length > 20)) {
+                err.pwd = "Password must be between 6 and 20 characters";
+            };
+        };
+        if (!data.firstName || data.firstName.length > 30){
+            err.firstName = "First name must be between 1 and 30 characters";
+        };
+        if (!data.lastName || data.lastName.length > 30){
+            err.lastName = "Last name must be between 1 and 30 characters";
+        };
+        if (!data.id){
+            err.id = "ID is required";
+        };
+        setErrors(err);
+        if (Object.keys(err).length) return false;
+        return true;
+    };
+
+    const compile = () => {
+        const newUser = {...data};
+        newUser.active = switches.admin ? true : switches.active;
+        newUser.companyAdmin = switches.admin;
+        newUser.emailReceiver = switches.emailReceiver;
+        return newUser;
     };
 
     return (
         <div>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
+            {message && <p>{message}</p>}
             <Form.Switch checked={switches.admin}
                         id='adminSwitch'
                         label={switches.admin ? 'Admin' : 'Basic User'}
@@ -67,6 +113,10 @@ function NewUserForm() {
                             placeholder='Password'
                             value={data.password}
                             onChange={handleChange} />
+                    <Form.Switch checked={switches.emailReceiver}
+                            id='emailReceiver'
+                            label={switches.emailReceiver ? 'Receive variance emails' : "Don't receive variance emails"}
+                            onChange={() => handleSwitch('emailReceiver')} />
                     </>}
                 <button type='submit'>Submit</button>
             </Form>

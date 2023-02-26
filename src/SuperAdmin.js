@@ -28,8 +28,8 @@ function SuperAdmin() {
             return false;
         };
         try {
-            setCompanyData(initialCompanyState);
             await Api.addCompany(companyData);
+            setCompanyData(initialCompanyState);
             toast('Company added');
         } catch (err) {
             getApiErrors(err);
