@@ -1,10 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
+import ComanyNameForm from './CompanyNameForm';
+import { useHandleChange, useErrors, useToast } from './hooks';
+import Errors from './Errors';
+import Api from './Api';
 
 function SuperAdmin() {
 
+    const initialCompanyState = {companyCode: ''};
+    const [companyData, handleCompanyChange, setCompanyData] = useHandleChange(initialCompanyState);
+    const [errors, setErrors] = useState({});
+    const [apiErrors, getApiErrors, setApiErrors] = useErrors();
+    const [message, toast] = useToast();
+    const initialState = {newCompany: false};
+    const [isOpen, setIsOpen] = useState(initialState);
+
+    const toggle = (field) => {
+        setIsOpen({...isOpen, [field]: !isOpen[field]});
+    };
+
+    const submitCompany = async (e) => {
+        e.preventDefault();
+        setApiErrors({});
+        setErrors({});
+
+        if (!companyData.companyCode.length) {
+            setErrors({error: 'Company name cannot be blank'});
+            return false;
+        };
+        try {
+            setCompanyData(initialCompanyState);
+            await Api.addCompany(companyData);
+            toast('Company added');
+        } catch (err) {
+            getApiErrors(err);
+        };
+    };
+
     return (
         <div>
-            <p>create company</p>
+            <Errors formErrors={errors}
+                    apiErrors={apiErrors} />
+            {message && <p>{message}</p>}
+            <button onClick={() => toggle('newCompany')}>
+                {isOpen.newCompany ? 'Cancel add company' : 'Add company'}
+            </button>
+            {isOpen.newCompany &&
+                <ComanyNameForm handleSubmit={submitCompany}
+                                handleChange={handleCompanyChange}
+                                data={companyData}/>}
             <p>possible future functions - delete things, create super admin, etc</p>
         </div>
     );

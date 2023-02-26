@@ -1,25 +1,26 @@
 import React, {useState} from 'react';
 import jwt_decode from 'jwt-decode';
-import Routing from './Routing';
 import Api from './Api';
+import Home from './Home';
 
 
 function App() {
 
 	const [user, setUser] = useState(localStorage.token &&
-							jwt_decode(localStorage.getItem("token")).user);
-	const [company, setCompany] = useState(localStorage.getItem("company"));
+							jwt_decode(localStorage.getItem("token")).cashCountUser);
+	const [company, setCompany] = useState(localStorage.getItem("cashCountCompany"));
 
 	const handleLogin = (token) => {
 		localStorage.setItem("token", token);
-		setUser(jwt_decode(token).user);
+		setUser(jwt_decode(token).cashCountUser);
 		Api.token = token;
 	};
 
 	return (
 		<div className="App">
-			<Routing user={user}
-					company={company} />
+			<Home user={user}
+					company={company}
+					handleLogin={handleLogin} />
 		</div>
 	);
 };

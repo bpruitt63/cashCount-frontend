@@ -1,15 +1,18 @@
 import React from 'react';
+import LoginForm from './LoginForm';
+import SuperAdmin from './SuperAdmin';
+import NewUserForm from './NewUserForm';
 
-function Admin({user}) {
+function Admin({user, handleLogin}) {
 
     return (
         <div>
             {!user && 
-                <p>login</p>}
+                <LoginForm handleLogin={handleLogin}/>}
             {user &&
-                <p>admin menu - users and containers</p>}
-            {user.superAdmin &&
-                <p>super admin link</p>}
+                <NewUserForm/>}
+            {user && user.superAdmin &&
+                <SuperAdmin />}
         </div>
     );
 };
