@@ -3,11 +3,12 @@ import { useHandleChange, useErrors } from './hooks';
 import Errors from './Errors';
 import CompanyNameForm from './CompanyNameForm';
 import Admin from './Admin';
+import Main from './Main';
 import Api from './Api';
 
 function Home({user, company, handleLogin, handleCompany}) {
 
-    const initialState = {containers: true, admin: false}
+    const initialState = {containers: true, admin: false};
     const [isOpen, setIsOpen] = useState(initialState);
     const initialCompany = {companyCode: ''};
     const [companyData, handleCompanyChange, setCompanyData] = useHandleChange(initialCompany);
@@ -47,7 +48,7 @@ function Home({user, company, handleLogin, handleCompany}) {
                                 handleSubmit={submitCompany}
                                 data={companyData}/>}
             {company &&
-                <p>company functions - count or count list</p>}
+                <Main />}
             <button onClick={() => toggle('admin')}>
                 {isOpen.admin ? 'Close Admin Tools' : 'Admin'}
             </button>
