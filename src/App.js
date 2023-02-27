@@ -17,12 +17,18 @@ function App() {
 		Api.token = token;
 	};
 
+	const handleCompany = (company) => {
+		localStorage.setItem("cashCountCompany", company);
+		setCompany(company);
+	};
+
 	return (
 		<Container>
 			<div className="App">
 				<Home user={user}
 						company={company}
-						handleLogin={handleLogin} />
+						handleLogin={handleLogin}
+						handleCompany={handleCompany} />
 			</div>
 		</Container>
 	);

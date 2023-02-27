@@ -29,7 +29,7 @@ class Api {
     };
 
     static async getCompany(companyCode) {
-        const res = await this.request(`/companies/${companyCode}`);
+        const res = await this.request(`companies/${companyCode}`);
         return res.company;
     };
 
