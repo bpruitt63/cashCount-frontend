@@ -48,12 +48,13 @@ function Home({user, company, handleLogin, handleCompany}) {
                                 handleSubmit={submitCompany}
                                 data={companyData}/>}
             {company &&
-                <Main />}
+                <Main company={company}/>}
             <button onClick={() => toggle('admin')}>
                 {isOpen.admin ? 'Close Admin Tools' : 'Admin'}
             </button>
             {isOpen.admin && <Admin user={user}
-                                    handleLogin={handleLogin}/>}
+                                    handleLogin={handleLogin}
+                                    company/>}
         </div>
     );
 };

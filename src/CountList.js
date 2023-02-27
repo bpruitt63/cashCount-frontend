@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CountList() {
+function CountList({company}) {
 
     return (
         <div>

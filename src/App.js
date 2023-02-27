@@ -9,7 +9,7 @@ function App() {
 
 	const [user, setUser] = useState(localStorage.token &&
 							jwt_decode(localStorage.getItem("token")).cashCountUser);
-	const [company, setCompany] = useState(localStorage.getItem("cashCountCompany"));
+	const [company, setCompany] = useState(JSON.parse(localStorage.getItem("cashCountCompany")));
 
 	const handleLogin = (token) => {
 		localStorage.setItem("token", token);
@@ -18,7 +18,7 @@ function App() {
 	};
 
 	const handleCompany = (company) => {
-		localStorage.setItem("cashCountCompany", company);
+		localStorage.setItem("cashCountCompany", JSON.stringify(company));
 		setCompany(company);
 	};
 

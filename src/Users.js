@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import NewUserForm from './NewUserForm';
 
-function Users() {
+function Users({company}) {
 
     const initialState = {newUser: false}
     const [isOpen, setIsOpen] = useState(initialState);
@@ -16,7 +16,7 @@ function Users() {
                 {isOpen.newUser ? 'Cancel Add User' : 'Add User'}
             </button>
             {isOpen.newUser &&
-                <NewUserForm />}
+                <NewUserForm company={company}/>}
         </div>
     );
 };

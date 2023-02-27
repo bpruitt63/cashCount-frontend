@@ -3,7 +3,7 @@ import LoginForm from './LoginForm';
 import SuperAdmin from './SuperAdmin';
 import Users from './Users';
 
-function Admin({user, handleLogin}) {
+function Admin({user, handleLogin, company}) {
 
     const initialState = {users: false, containers: false}
     const [isOpen, setIsOpen] = useState(initialState);
@@ -21,7 +21,7 @@ function Admin({user, handleLogin}) {
                     {isOpen.users ? 'Close User Menu' : 'Users'}    
                 </button>}
             {user && isOpen.users &&
-                <Users />}
+                <Users company={company}/>}
             {user && user.superAdmin &&
                 <SuperAdmin />}
         </div>

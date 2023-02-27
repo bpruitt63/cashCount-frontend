@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap';
 import CountForm from './CountForm';
 import CountList from './CountList';
 
-function Main() {
+function Main({company}) {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -17,9 +17,9 @@ function Main() {
                 {isOpen ? 'New Count' : 'Count List'}
             </Button>
             {!isOpen &&
-                <CountForm />}
+                <CountForm company={company}/>}
             {isOpen &&
-                <CountList />}
+                <CountList company={company}/>}
         </div>
     );
 };
