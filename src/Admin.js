@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import LoginForm from './LoginForm';
 import SuperAdmin from './SuperAdmin';
 import Users from './Users';
+import ContainerForm from './ContainerForm';
 
 function Admin({user, handleLogin, company}) {
 
@@ -22,6 +23,12 @@ function Admin({user, handleLogin, company}) {
                 </button>}
             {user && isOpen.users &&
                 <Users company={company}/>}
+            {user &&
+                <button onClick={() => toggle('containers')}>
+                    {isOpen.containers ? 'Close Container Menu' : 'Containers'}    
+                </button>}
+            {user && isOpen.containers &&
+                <ContainerForm company={company}/>}
             {user && user.superAdmin &&
                 <SuperAdmin />}
         </div>
