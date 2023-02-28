@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table} from 'react-bootstrap';
+import { formatTime } from './static/helpers';
 
 function CountList({count, company}) {
 
@@ -18,12 +19,12 @@ function CountList({count, company}) {
                 <tbody>
                     {count.map(c =>
                         <tr key={c.id}>
-                            <td>{c.cash}</td>
+                            <td>{`$${c.cash}`}</td>
                             <td>
-                                {+company.containers[c.containerId].target - +c.cash}
+                                {`$${c.cash - +company.containers[c.containerId].target}`}
                             </td>
-                            <td>{c.userId}</td>
-                            <td>{c.time}</td>
+                            <td>{`${c.firstName} ${c.lastName}`}</td>
+                            <td>{formatTime(c.time)}</td>
                         </tr>)}
                 </tbody>
             </Table>
