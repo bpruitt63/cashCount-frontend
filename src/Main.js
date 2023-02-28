@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button} from 'react-bootstrap';
 import CountForm from './CountForm';
-import CountList from './CountList';
+import CountListForm from './CountListForm';
 
 function Main({company}) {
 
@@ -14,12 +14,12 @@ function Main({company}) {
     return (
         <div>
             <Button onClick={toggle}>
-                {isOpen ? 'New Count' : 'Count List'}
+                {isOpen ? 'New Count' : 'Past Counts'}
             </Button>
             {!isOpen &&
                 <CountForm company={company}/>}
             {isOpen &&
-                <CountList company={company}/>}
+                <CountListForm company={company}/>}
         </div>
     );
 };

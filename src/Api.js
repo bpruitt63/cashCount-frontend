@@ -52,6 +52,11 @@ class Api {
         const res = await this.request(`containers/${containerId}/count`, data, 'post');
         return res.count;
     };
+
+    static async getCounts(data, containerId) {
+        const res = await this.request(`containers/${containerId}/counts`, data, 'get');
+        return res.counts;
+    };
 };
 
 Api.token = localStorage.getItem("token");
