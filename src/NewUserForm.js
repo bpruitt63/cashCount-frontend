@@ -118,7 +118,7 @@ function NewUserForm({company}) {
                             label={switches.emailReceiver ? 'Receive variance emails' : "Don't receive variance emails"}
                             onChange={() => handleSwitch('emailReceiver')} />
                     </>}
-                <button type='submit'>Submit</button>
+                <Button type='submit'>Submit</Button>
             </Form>
         </div>
     );
