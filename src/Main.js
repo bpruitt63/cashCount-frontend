@@ -13,7 +13,8 @@ function Main({company}) {
 
     return (
         <div>
-            <Button onClick={toggle}>
+            <Button className='topButton'
+                    onClick={toggle}>
                 {isOpen ? 'New Count' : 'Past Counts'}
             </Button>
             {!isOpen &&

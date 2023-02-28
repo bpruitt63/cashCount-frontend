@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Row, Col} from 'react-bootstrap';
 import { useHandleChange, useErrors } from './hooks';
 import { defaultDateFormat } from './static/helpers';
 import Errors from './Errors';
@@ -66,23 +66,38 @@ function CountListForm({company}) {
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
             <Form onSubmit={handleSubmit}>
-                <Form.Label>From</Form.Label>
-                <Form.Control type='date'
-                                name='fromDate'
-                                value={data.fromDate}
-                                onChange={handleChange} />
-                <Form.Label>To</Form.Label>
-                <Form.Control type='date'
-                                name='toDate'
-                                value={data.toDate}
-                                onChange={handleChange} />
+                <Row>
+                    <Col md={{span: 1, offset: 4}}>
+                        <Form.Label>From</Form.Label>
+                    </Col>
+                    <Col md={3}>
+                        <Form.Control type='date'
+                                    name='fromDate'
+                                    value={data.fromDate}
+                                    onChange={handleChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={{span: 1, offset: 4}}>
+                        <Form.Label>To</Form.Label>
+                    </Col>
+                    <Col md={3}>
+                        <Form.Control type='date'
+                                    name='toDate'
+                                    value={data.toDate}
+                                    onChange={handleChange} />
+                    </Col>
+                </Row>
                 {Object.keys(containers).map(c =>
-                    <Form.Check key={`container${c}`}
-                                type='checkbox'
-                                id={`container${c}`}
-                                label={company.containers[c].name}
-                                checked={containers[c]}
-                                onChange={() => handleCheck(c)} />)}
+                    <Row key={`container${c}`}>
+                        <Col md={{span: 3, offset: 4}}>
+                            <Form.Check type='checkbox'
+                                    id={`container${c}`}
+                                    label={company.containers[c].name}
+                                    checked={containers[c]}
+                                    onChange={() => handleCheck(c)} />
+                        </Col>
+                    </Row>)}
                 <Button type='submit'>Get Counts</Button>
             </Form>
             {Object.keys(counts).map(key =>

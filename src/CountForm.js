@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Row, Col} from 'react-bootstrap';
 import { useHandleChange, useErrors, useToast } from './hooks';
 import Errors from './Errors';
 import Api from './Api';
@@ -67,42 +67,61 @@ function CountForm({company}) {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Errors formErrors={errors}
-                    apiErrors={apiErrors} />
-                    {message && <p>{message}</p>}
-            {Object.keys(company.containers).map(key =>
-                <Form.Check key={`container${key}`}
-                            type='radio'
-                            id={`container${key}`}
-                            label={company.containers[key].name}
-                            checked={container===key}
-                            onChange={() => setContainer(key)} />)}
-            {Object.keys(data).map(d => 
-                <div key={d}>
-                    <Form.Label>{d}</Form.Label>
-                    <Form.Control type='number'
-                                    name={d}
-                                    min='0'
-                                    max='1000'
-                                    value={data[d]}
-                                    onChange={handleChange} />
-                </div>)}
-            <p>Total: ${total.toFixed(2)}</p>
-            <Form.Label>User ID</Form.Label>
-            <Form.Control type='text'
-                            name='userId'
-                            id='userId'
-                            placeholder='User ID'
-                            value={textData.userId}
-                            onChange={handleTextChange} />
-            <Form.Label>Notes</Form.Label>
-            <Form.Control as='textarea' 
-                            rows={3}
-                            value={textData.notes}
-                            onChange={handleTextChange} />
-            <Button type='submit'>Save</Button>
-        </Form>
+        
+            <Form onSubmit={handleSubmit}>
+                <Errors formErrors={errors}
+                        apiErrors={apiErrors} />
+                        {message && <p>{message}</p>}
+                {Object.keys(company.containers).map(key =>
+                    <Row key={`container${key}`}>
+                        <Col md={{span: 3, offset: 5}}>
+                            <Form.Check type='radio'
+                                        id={`container${key}`}
+                                        label={company.containers[key].name}
+                                        checked={container===key}
+                                        onChange={() => setContainer(key)} />
+                        </Col>
+                    </Row>)}
+                {Object.keys(data).map(d => 
+                    <Row key={d}>
+                        <Col md={{span: 2, offset: 4}}>
+                            <Form.Label>{d}</Form.Label>
+                        </Col>
+                        <Col md={2}>
+                            <Form.Control type='number'
+                                            name={d}
+                                            min='0'
+                                            max='1000'
+                                            value={data[d]}
+                                            onChange={handleChange} />
+                        </Col>
+                    </Row>)}
+                <p>Total: ${total.toFixed(2)}</p>
+                <Row>
+                    <Col md={{span: 2, offset: 4}}>
+                        <Form.Label>User ID</Form.Label>
+                    </Col>
+                    <Col md={2}>
+                        <Form.Control type='text'
+                                        name='userId'
+                                        id='userId'
+                                        placeholder='User ID'
+                                        value={textData.userId}
+                                        onChange={handleTextChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={{span: 4, offset: 4}}>
+                        <Form.Label>Notes</Form.Label>
+                        <Form.Control as='textarea' 
+                                        rows={3}
+                                        value={textData.notes}
+                                        onChange={handleTextChange} />
+                    </Col>
+                </Row>
+                <Button type='submit'>Save</Button>
+            </Form>
+        
     );
 };
 

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Container } from 'react-bootstrap';
+import './static/styles/App.css';
 import jwt_decode from 'jwt-decode';
 import Api from './Api';
 import Home from './Home';
