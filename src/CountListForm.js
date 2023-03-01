@@ -66,7 +66,7 @@ function CountListForm({company}) {
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
             <Form onSubmit={handleSubmit}>
-                <Row>
+                <Row className='countFormRow'>
                     <Col md={{span: 1, offset: 4}}>
                         <Form.Label>From</Form.Label>
                     </Col>
@@ -77,7 +77,7 @@ function CountListForm({company}) {
                                     onChange={handleChange} />
                     </Col>
                 </Row>
-                <Row>
+                <Row className='countFormRow'>
                     <Col md={{span: 1, offset: 4}}>
                         <Form.Label>To</Form.Label>
                     </Col>
@@ -89,7 +89,8 @@ function CountListForm({company}) {
                     </Col>
                 </Row>
                 {Object.keys(containers).map(c =>
-                    <Row key={`container${c}`}>
+                    <Row key={`container${c}`}
+                            className='countFormRow'>
                         <Col md={{span: 3, offset: 4}}>
                             <Form.Check type='checkbox'
                                     id={`container${c}`}
@@ -98,7 +99,11 @@ function CountListForm({company}) {
                                     onChange={() => handleCheck(c)} />
                         </Col>
                     </Row>)}
-                <Button type='submit'>Get Counts</Button>
+                <Button variant='dark'
+                        className='getCountsButton'
+                        type='submit'>
+                    Get Counts
+                </Button>
             </Form>
             {Object.keys(counts).map(key =>
                 <CountList key={key}

@@ -74,7 +74,8 @@ function CountForm({company}) {
                         apiErrors={apiErrors} />
                         {message && <p>{message}</p>}
                 {Object.keys(company.containers).map(key =>
-                    <Row key={`container${key}`}>
+                    <Row key={`container${key}`}
+                            className='countFormRow'>
                         <Col md={{span: 3, offset: 5}}>
                             <Form.Check type='radio'
                                         id={`container${key}`}
@@ -84,7 +85,8 @@ function CountForm({company}) {
                         </Col>
                     </Row>)}
                 {Object.keys(data).map(d => 
-                    <Row key={d}>
+                    <Row key={d}
+                            className='countFormRow'>
                         <Col md={{span: 2, offset: 4}}>
                             <Form.Label>{d}</Form.Label>
                         </Col>
@@ -97,7 +99,14 @@ function CountForm({company}) {
                                             onChange={handleChange} />
                         </Col>
                     </Row>)}
-                <p>Total: ${total.toFixed(2)}</p>
+                <Row className='countFormRow'>
+                    <Col md={{span: 2, offset: 4}}>
+                        <p>Total:</p>
+                    </Col>
+                    <Col md={2}>
+                        <p>${total.toFixed(2)}</p>
+                    </Col>
+                </Row>
                 <Row>
                     <Col md={{span: 2, offset: 4}}>
                         <Form.Label>User ID</Form.Label>
@@ -120,7 +129,11 @@ function CountForm({company}) {
                                         onChange={handleTextChange} />
                     </Col>
                 </Row>
-                <Button type='submit'>Save</Button>
+                <Button variant='dark'
+                        type='submit'
+                        className='saveButton'>
+                    Save
+                </Button>
             </Form>
         
     );

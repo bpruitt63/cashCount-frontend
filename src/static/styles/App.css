@@ -5,3 +5,16 @@ body {
 .topButton {
     margin: 40px 0px 20px;
 }
+
+.saveButton {
+    margin: 20px 0px;
+    padding: 10px 30px;
+}
+
+.countFormRow {
+    margin: 5px 0px;
+}
+
+.getCountsButton {
+    margin: 20px 0px;
+}
