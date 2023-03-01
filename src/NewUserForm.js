@@ -64,6 +64,8 @@ function NewUserForm({company}) {
         newUser.active = switches.admin ? true : switches.active;
         newUser.companyAdmin = switches.admin;
         newUser.emailReceiver = switches.emailReceiver;
+        if (!newUser.email) delete newUser.email;
+        if (!newUser.password) delete newUser.password;
         return newUser;
     };
 

@@ -12,7 +12,8 @@ function CountForm({company}) {
     const initialText = {notes: '', userId: ''};
     const [textData, handleTextChange, setTextData] = useHandleChange(initialText);
     const [total, setTotal] = useState(0.00);
-    const [container, setContainer] = useState();
+    const initialContainer = Object.keys(company.containers).length === 1 ? Object.keys(company.containers)[0] : null;
+    const [container, setContainer] = useState(initialContainer);
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
     const [message, toast] = useToast();
@@ -56,7 +57,7 @@ function CountForm({company}) {
                         userId: textData.userId};
         try {
             await Api.postCount(count, container);
-            setContainer(null);
+            setContainer(initialContainer);
             setData(initialState);
             setTextData(initialText);
             setTotal(0.00);
