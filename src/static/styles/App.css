@@ -18,3 +18,11 @@ body {
 .getCountsButton {
     margin: 20px 0px;
 }
+
+.toastMsg {
+  background-color: green;
+  color: white;
+  display: block;
+  padding: 5px 20px;
+  border-radius: 5px;
+}

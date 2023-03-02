@@ -9,6 +9,7 @@ function CountForm({company}) {
     const initialState = {'$100': 0, '$50': 0, '$20': 0, '$10': 0, '$5': 0, '$1': 0,
                         '$0.25': 0, '$0.10': 0, '$0.05': 0, '$0.01': 0};
     const [data, setData] = useState(initialState);
+    const [misc, setMisc] = useState({misc: 0.00});
     const initialText = {notes: '', userId: ''};
     const [textData, handleTextChange, setTextData] = useHandleChange(initialText);
     const [total, setTotal] = useState(0.00);
@@ -22,11 +23,22 @@ function CountForm({company}) {
         const {name, value} = e.target;
         const newData = {...data, [name]: value};
         setData(newData);
-        let sum = 0.00;
+        let sum = misc.misc;
         for (let key of Object.keys(newData)) {
             const factor = parseFloat(key.substring(1));
             sum += factor * newData[key];
-        }
+        };
+        setTotal(sum);
+    };
+
+    const handleMisc = (e) => {
+        const newMisc = +e.target.value;
+        let sum = +newMisc.toFixed(2);
+        setMisc({misc: newMisc});
+        for (let key of Object.keys(data)) {
+            const factor = parseFloat(key.substring(1));
+            sum += factor * data[key];
+        };
         setTotal(sum);
     };
 
@@ -61,6 +73,7 @@ function CountForm({company}) {
             setData(initialState);
             setTextData(initialText);
             setTotal(0.00);
+            setMisc({misc: 0.00});
             toast('Count saved');
         } catch (err) {
             getApiErrors(err);
@@ -72,7 +85,6 @@ function CountForm({company}) {
             <Form onSubmit={handleSubmit}>
                 <Errors formErrors={errors}
                         apiErrors={apiErrors} />
-                        {message && <p>{message}</p>}
                 {Object.keys(company.containers).map(key =>
                     <Row key={`container${key}`}
                             className='countFormRow'>
@@ -99,6 +111,22 @@ function CountForm({company}) {
                                             onChange={handleChange} />
                         </Col>
                     </Row>)}
+                <Row className='countFormRow'>
+                    <Col md={{span: 2, offset: 4}}>
+                        <Form.Label>
+                            Misc (enter actual $ amount)
+                        </Form.Label>
+                    </Col>
+                    <Col md={2}>
+                    <Form.Control type='number'
+                                    name='misc'
+                                    step='0.01'
+                                    min='0'
+                                    max='1000'
+                                    value={misc.misc}
+                                    onChange={handleMisc} />
+                    </Col>
+                </Row>
                 <Row className='countFormRow'>
                     <Col md={{span: 2, offset: 4}}>
                         <p>Total:</p>
@@ -129,6 +157,7 @@ function CountForm({company}) {
                                         onChange={handleTextChange} />
                     </Col>
                 </Row>
+                {message && <p className='toastMsg'>{message}</p>}
                 <Button variant='dark'
                         type='submit'
                         className='saveButton'>

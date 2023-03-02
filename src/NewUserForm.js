@@ -73,7 +73,7 @@ function NewUserForm({company}) {
         <div>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            {message && <p>{message}</p>}
+            {message && <p className='toastMsg'>{message}</p>}
             <Form.Switch checked={switches.admin}
                         id='adminSwitch'
                         label={switches.admin ? 'Admin' : 'Basic User'}

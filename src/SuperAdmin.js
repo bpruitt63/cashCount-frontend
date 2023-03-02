@@ -40,7 +40,7 @@ function SuperAdmin() {
         <div>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            {message && <p>{message}</p>}
+            {message && <p className='toastMsg'>{message}</p>}
             <button onClick={() => toggle('newCompany')}>
                 {isOpen.newCompany ? 'Cancel add company' : 'Add company'}
             </button>

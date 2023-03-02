@@ -20,7 +20,7 @@ function CountListForm({company}) {
         Object.keys(company.containers).map(key =>
             setContainers(c => ({
                 ...c,
-                [key]: false
+                [key]: true
             })));
     }, [company]);
 
@@ -32,6 +32,7 @@ function CountListForm({company}) {
         e.preventDefault();
         setErrors({});
         setApiErrors({});
+        setCounts({});
 
         if (!Object.values(containers).includes(true)){
             setErrors({error: 'Must select at least one container'});
@@ -47,14 +48,21 @@ function CountListForm({company}) {
         const from = Date.parse(`${data.fromDate}T00:01:00.000-05:00`);
         const to = Date.parse(`${data.toDate}T23:59:59.000-05:00`);
         try {
+            let noneFound = true;
             for (let key of Object.keys(containers)) {
                 if (containers[key]) {
                     const result = await Api.getCounts({startTime: from, endTime: to}, key);
-                    setCounts(c => ({
-                        ...c,
-                        [key] : result
-                    }));
+                    if (result[0]) {
+                        noneFound = false;
+                        setCounts(c => ({
+                            ...c,
+                            [key] : result
+                        }));
+                    };
                 };
+            };
+            if (noneFound) {
+                setErrors({error: 'No counts found'});
             };
         } catch (err) {
             getApiErrors(err);

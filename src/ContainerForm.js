@@ -37,7 +37,7 @@ function ContainerForm({company}) {
         <Form onSubmit={handleSubmit}>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            {message && <p>{message}</p>}
+            {message && <p className='toastMsg'>{message}</p>}
             <Form.Label>Name</Form.Label>
             <Form.Control type='text'
                             name='name'
