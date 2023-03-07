@@ -4,6 +4,11 @@ import { formatTime } from './static/helpers';
 
 function CountList({count, company}) {
 
+    const getVariance = (cash, containerId) => {
+        let variance = cash - +company.containers[containerId].target;
+        return (Math.round(variance * 100) / 100).toFixed(2);
+    };
+
     return (
         <div>
             <h4>{company.containers[count[0].containerId].name}</h4>
@@ -21,7 +26,7 @@ function CountList({count, company}) {
                         <tr key={c.id}>
                             <td>{`$${c.cash}`}</td>
                             <td>
-                                {`$${c.cash - +company.containers[c.containerId].target}`}
+                                {`$${getVariance(c.cash, c.containerId)}`}
                             </td>
                             <td>{`${c.firstName} ${c.lastName}`}</td>
                             <td>{formatTime(c.time)}</td>
