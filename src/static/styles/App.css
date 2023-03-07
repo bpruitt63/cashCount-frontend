@@ -26,3 +26,16 @@ body {
   padding: 5px 20px;
   border-radius: 5px;
 }
+
+.iconButton {
+    border: 0px;
+    background-color: #1fe0;
+}
+
+.iconImg {
+    max-width: 15px;
+}
+
+.centered {
+    justify-content: center;
+}

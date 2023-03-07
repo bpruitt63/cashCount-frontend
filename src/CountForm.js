@@ -10,7 +10,7 @@ function CountForm({company}) {
                         '$0.25': 0, '$0.10': 0, '$0.05': 0, '$0.01': 0};
     const [data, setData] = useState(initialState);
     const [misc, setMisc] = useState({misc: 0.00});
-    const initialText = {notes: '', userId: ''};
+    const initialText = {note: '', userId: ''};
     const [textData, handleTextChange, setTextData] = useHandleChange(initialText);
     const [total, setTotal] = useState(0.00);
     const initialContainer = Object.keys(company.containers).length === 1 ? Object.keys(company.containers)[0] : null;
@@ -65,7 +65,7 @@ function CountForm({company}) {
         const count = {cash: total,
                         time,
                         timestamp,
-                        note: textData.notes || null,
+                        note: textData.note || null,
                         userId: textData.userId};
         try {
             await Api.postCount(count, container);
@@ -153,7 +153,8 @@ function CountForm({company}) {
                         <Form.Label>Notes</Form.Label>
                         <Form.Control as='textarea' 
                                         rows={3}
-                                        value={textData.notes}
+                                        name='note'
+                                        value={textData.note}
                                         onChange={handleTextChange} />
                     </Col>
                 </Row>
