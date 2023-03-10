@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { ButtonGroup, Button } from 'react-bootstrap';
 import LoginForm from './LoginForm';
 import SuperAdmin from './SuperAdmin';
 import Users from './Users';
@@ -6,31 +7,46 @@ import ContainerForm from './ContainerForm';
 
 function Admin({user, handleLogin, company, handleCompany}) {
 
-    const initialState = {users: false, containers: false}
+    const initialState = {users: false, containers: false, companies: false};
     const [isOpen, setIsOpen] = useState(initialState);
 
     const toggle = (field) => {
-        setIsOpen({...isOpen, [field]: !isOpen[field]});
+        setIsOpen({...initialState, [field]: !isOpen[field]});
     };
 
     return (
         <div>
+            <h4>Admin Tools</h4>
             {!user && 
                 <LoginForm handleLogin={handleLogin}/>}
-            {user &&
-                <button onClick={() => toggle('users')}>
-                    {isOpen.users ? 'Close User Menu' : 'Users'}    
-                </button>}
+            {user && !user.superAdmin && !company &&
+                <p>Please sign in company to proceed</p>}
+            <ButtonGroup className='adminButtonGroup'>
+                {company &&
+                    <>
+                        <Button variant={isOpen.users ? 'outline-secondary' : 'secondary'}
+                                onClick={() => toggle('users')}>
+                            Users
+                        </Button>
+                        <Button variant={isOpen.containers ? 'outline-secondary' : 'secondary'}
+                                onClick={() => toggle('containers')}>
+                            Containers
+                        </Button>
+                    </>}
+                {user?.superAdmin &&
+                    <>
+                        <Button variant={isOpen.companies ? 'outline-secondary' : 'secondary'}
+                                onClick={() => toggle('companies')}>
+                            Add Company 
+                        </Button>
+                    </>}
+            </ButtonGroup>
             {user && isOpen.users &&
                 <Users company={company}/>}
-            {user &&
-                <button onClick={() => toggle('containers')}>
-                    {isOpen.containers ? 'Close Container Menu' : 'Containers'}    
-                </button>}
             {user && isOpen.containers &&
                 <ContainerForm company={company}
                                 handleCompany={handleCompany}/>}
-            {user && user.superAdmin &&
+            {isOpen.companies &&
                 <SuperAdmin />}
         </div>
     );

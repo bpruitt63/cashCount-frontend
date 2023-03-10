@@ -41,7 +41,7 @@ body {
 }
 
 .adminTools {
-    border: 1px solid gray;
+    border: 1px solid lightslategrey;
     border-radius: 10px;
     margin-bottom: 20px;
     padding-top: 15px;
@@ -49,4 +49,8 @@ body {
 
 .adminToolsButton {
     margin-bottom: 15px;
+}
+
+.adminButtonGroup {
+    margin-bottom: 20px;
 }

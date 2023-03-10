@@ -80,6 +80,7 @@ function NewUserForm({company}) {
                         onChange={() => handleSwitch('admin')} />
             <Form.Switch checked={switches.active}
                         id='activeSwitch'
+                        disabled={switches.admin}
                         label={switches.active ? 'Active' : 'Inactive'}
                         onChange={() => handleSwitch('active')} />
             <Form onSubmit={handleSubmit}>
