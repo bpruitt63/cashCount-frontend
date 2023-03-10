@@ -39,3 +39,14 @@ body {
 .centered {
     justify-content: center;
 }
+
+.adminTools {
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding-top: 15px;
+}
+
+.adminToolsButton {
+    margin-bottom: 15px;
+}

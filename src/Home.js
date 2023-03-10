@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Button} from 'react-bootstrap';
 import { useHandleChange, useErrors } from './hooks';
 import Errors from './Errors';
 import CompanyNameForm from './CompanyNameForm';
@@ -49,13 +50,18 @@ function Home({user, company, handleLogin, handleCompany}) {
                                 data={companyData}/>}
             {company &&
                 <Main company={company}/>}
-            <button onClick={() => toggle('admin')}>
-                {isOpen.admin ? 'Close Admin Tools' : 'Admin'}
-            </button>
-            {isOpen.admin && <Admin user={user}
-                                    handleLogin={handleLogin}
-                                    company={company}
-                                    handleCompany={handleCompany}/>}
+            <div className={isOpen.admin ? 'adminTools' : ''}>
+                {isOpen.admin && <Admin user={user}
+                                        handleLogin={handleLogin}
+                                        company={company}
+                                        handleCompany={handleCompany}/>}
+                <Button variant='secondary'
+                        size='sm' 
+                        className='adminToolsButton'
+                        onClick={() => toggle('admin')}>
+                    {isOpen.admin ? 'Close Admin Tools' : 'Admin'}
+                </Button>
+            </div>
         </div>
     );
 };
