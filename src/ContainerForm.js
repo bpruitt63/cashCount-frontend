@@ -4,7 +4,7 @@ import { useHandleChange, useErrors, useToast } from './hooks';
 import Errors from './Errors';
 import Api from './Api';
 
-function ContainerForm({company}) {
+function ContainerForm({company, handleCompany}) {
 
     const initialState = {name: '', target: 0, posThreshold: 0, negThreshold: 0};
     const [data, handleChange, setData] = useHandleChange(initialState);
@@ -24,7 +24,15 @@ function ContainerForm({company}) {
         try {
             const container = {name: data.name, target: +data.target,
                                 posThreshold: +data.posThreshold, negThreshold: + data.negThreshold};
-            await Api.addContainer(container, company.companyCode);
+            const result = await Api.addContainer(container, company.companyCode);
+            const addedContainer = {name: result.name, 
+                                    target: result.target,
+                                    posThreshold: result.posThreshold,
+                                    negThreshold: result.negThreshold};
+            const updatedCompany = {...company,
+                                        containers: {...company.containers,
+                                        [result.id]: addedContainer}};
+            handleCompany(updatedCompany);
             setData(initialState);
             toast('Container added');
         } catch (er) {

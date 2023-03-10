@@ -54,7 +54,8 @@ function Home({user, company, handleLogin, handleCompany}) {
             </button>
             {isOpen.admin && <Admin user={user}
                                     handleLogin={handleLogin}
-                                    company={company}/>}
+                                    company={company}
+                                    handleCompany={handleCompany}/>}
         </div>
     );
 };

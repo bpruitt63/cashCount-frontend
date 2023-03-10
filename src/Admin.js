@@ -4,7 +4,7 @@ import SuperAdmin from './SuperAdmin';
 import Users from './Users';
 import ContainerForm from './ContainerForm';
 
-function Admin({user, handleLogin, company}) {
+function Admin({user, handleLogin, company, handleCompany}) {
 
     const initialState = {users: false, containers: false}
     const [isOpen, setIsOpen] = useState(initialState);
@@ -28,7 +28,8 @@ function Admin({user, handleLogin, company}) {
                     {isOpen.containers ? 'Close Container Menu' : 'Containers'}    
                 </button>}
             {user && isOpen.containers &&
-                <ContainerForm company={company}/>}
+                <ContainerForm company={company}
+                                handleCompany={handleCompany}/>}
             {user && user.superAdmin &&
                 <SuperAdmin />}
         </div>
