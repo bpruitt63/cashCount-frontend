@@ -7,7 +7,7 @@ import Admin from './Admin';
 import Main from './Main';
 import Api from './Api';
 
-function Home({user, company, handleLogin, handleCompany}) {
+function Home({user, company, handleLogin, handleCompany, logoutCompany, logoutUser}) {
 
     const initialState = {containers: true, admin: false};
     const [isOpen, setIsOpen] = useState(initialState);
@@ -61,6 +61,18 @@ function Home({user, company, handleLogin, handleCompany}) {
                         onClick={() => toggle('admin')}>
                     {isOpen.admin ? 'Close Admin Tools' : 'Admin'}
                 </Button>
+            </div>
+            <div className='logoutButtons'>
+                {user &&
+                    <button className='logoutButton' 
+                            onClick={logoutUser}>
+                        Admin Logout
+                    </button>}
+                {company && 
+                    <button className='logoutButton' 
+                            onClick={logoutCompany}>
+                        Company Logout
+                    </button>}
             </div>
         </div>
     );

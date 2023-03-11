@@ -23,13 +23,25 @@ function App() {
 		setCompany(company);
 	};
 
+	const logoutUser = () => {
+		localStorage.removeItem("token");
+		setUser(null);
+	};
+
+	const logoutCompany = () => {
+		localStorage.removeItem("cashCountCompany");
+		setCompany(null);
+	};
+
 	return (
 		<Container>
 			<div className="App">
 				<Home user={user}
 						company={company}
 						handleLogin={handleLogin}
-						handleCompany={handleCompany} />
+						handleCompany={handleCompany}
+						logoutCompany={logoutCompany}
+						logoutUser={logoutUser} />
 			</div>
 		</Container>
 	);

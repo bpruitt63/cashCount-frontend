@@ -77,3 +77,15 @@ body {
 .formTitle {
     margin-bottom: 20px;
 }
+
+.logoutButton {
+    border: none;
+    background-color: #1fe0;
+    font-size: 70%;
+    margin: 10px 20px;
+    color: blue;
+}
+
+.logoutButtons {
+    text-align: right;
+}
