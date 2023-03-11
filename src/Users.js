@@ -39,6 +39,30 @@ function Users({company}) {
         };
     };
 
+    const editUser = (updatedUser) => {
+        const activeIndex = activeUsers.findIndex(u => u.id === updatedUser.id);
+        const inactiveIndex = inactiveUsers.findIndex(u => u.id === updatedUser.id);
+        const updatedActive = [...activeUsers];
+        const updatedInactive = [...inactiveUsers];
+        if (updatedUser.active) {
+            if (activeIndex === -1) {
+                updatedActive.push(updatedUser);
+                updatedInactive.splice(inactiveIndex, 1);
+            } else {
+                updatedActive[activeIndex] = updatedUser;
+            };
+        } else {
+            if (inactiveIndex === -1) {
+                updatedInactive.push(updatedUser);
+                updatedActive.splice(activeIndex, 1);
+            } else {
+                updatedInactive[inactiveIndex] = updatedUser;
+            };
+        };
+        setActiveUsers(updatedActive);
+        setInactiveUsers(updatedInactive);
+    };
+
 
     return (
         <div className='nestedTools'>
@@ -60,12 +84,14 @@ function Users({company}) {
             {isOpen.activeUsers &&
                 <>
                     <h5>Active Users</h5>
-                    <UserList users={activeUsers} />
+                    <UserList users={activeUsers}
+                                editUser={editUser} />
                 </>}
             {isOpen.inactiveUsers &&
                 <>
                     <h5>Inactive Users</h5>
-                    <UserList users={inactiveUsers} />
+                    <UserList users={inactiveUsers}
+                                editUser={editUser} />
                 </>}
             {isOpen.newUser &&
                 <NewUserForm company={company}

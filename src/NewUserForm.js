@@ -7,7 +7,7 @@ import Api from './Api';
 function NewUserForm({company, addUser}) {
 
     const initialState = {id: '', firstName: '', lastName: '',
-                        email: '', password: ''};
+                        email: '', password: '', password2: ''};
     const [data, handleChange, setData] = useHandleChange(initialState);
     const initialSwitch = {admin: false, active: true, emailReceiver: false};
     const [switches, setSwitch] = useState(initialSwitch);
@@ -16,7 +16,9 @@ function NewUserForm({company, addUser}) {
     const [message, toast] = useToast();
 
     const handleSwitch = (field) => {
-        setSwitch({...switches, [field]: !switches[field]});
+        const updatedSwitches = {...switches, [field]: !switches[field]};
+        if (updatedSwitches.companyAdmin) updatedSwitches.active = true;
+        setSwitch(updatedSwitches);
     };
 
     const handleSubmit = async (e) => {
@@ -42,9 +44,12 @@ function NewUserForm({company, addUser}) {
             if (!data.email || !data.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
                 err.email = "Must be valid email address";
             };
-            if (!data.pwd || (data.pwd.length < 6 || data.pwd.length > 20)) {
-                err.pwd = "Password must be between 6 and 20 characters";
+            if (!data.password || (data.password.length < 6 || data.password.length > 20)) {
+                err.password = "Password must be between 6 and 20 characters";
             };
+        };
+        if (data.password !== data.password2) {
+            err.password2 = 'Passwords must match';
         };
         if (!data.firstName || data.firstName.length > 30){
             err.firstName = "First name must be between 1 and 30 characters";
@@ -65,6 +70,7 @@ function NewUserForm({company, addUser}) {
         newUser.active = switches.admin ? true : switches.active;
         newUser.companyAdmin = switches.admin;
         newUser.emailReceiver = switches.emailReceiver;
+        delete newUser.password2;
         if (!newUser.email) delete newUser.email;
         if (!newUser.password) delete newUser.password;
         return newUser;
@@ -116,6 +122,12 @@ function NewUserForm({company, addUser}) {
                             id='password'
                             placeholder='Password'
                             value={data.password}
+                            onChange={handleChange} />
+                    <Form.Control type='password'
+                            name='password2'
+                            id='password2'
+                            placeholder='Retype Password'
+                            value={data.password2}
                             onChange={handleChange} />
                     <Form.Switch checked={switches.emailReceiver}
                             id='emailReceiver'
