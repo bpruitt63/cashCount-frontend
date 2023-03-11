@@ -21,6 +21,11 @@ function ContainerForm({company, handleCompany}) {
             setErrors({error: 'Container needs a name'});
             return false;
         };
+        if (data.name.length > 50) {
+            setErrors({error: 'Container name cannot exceed 50 characters'});
+            return false;
+        };
+        
         try {
             const container = {name: data.name, target: +data.target,
                                 posThreshold: +data.posThreshold, negThreshold: + data.negThreshold};

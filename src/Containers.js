@@ -23,7 +23,9 @@ function Containers({company, handleCompany}) {
                 </Button>
             </ButtonGroup>
             {isOpen.containers &&
-                <ContainerList containers={Object.entries(company.containers)} />}
+                <ContainerList containers={Object.entries(company.containers)}
+                                company={company}
+                                handleCompany={handleCompany} />}
             {isOpen.newContainer &&
                 <ContainerForm company={company}
                                 handleCompany={handleCompany} />}
