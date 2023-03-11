@@ -33,5 +33,15 @@ function useToast() {
     return [message, toast, setMessage];
 };
 
+function useToggle(initialState, toggleState=initialState) {
+    const [isOpen, setIsOpen] = useState(initialState);
 
-export {useHandleChange, useErrors, useToast};
+    function toggle(section){
+        setIsOpen({...toggleState, 
+            [section]: !isOpen[section]});
+    };
+    return [toggle, isOpen];
+};
+
+
+export {useHandleChange, useErrors, useToast, useToggle};

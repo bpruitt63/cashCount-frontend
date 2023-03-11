@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
+import { useToggle } from './hooks';
 import LoginForm from './LoginForm';
 import SuperAdmin from './SuperAdmin';
 import Users from './Users';
@@ -8,11 +9,7 @@ import ContainerForm from './ContainerForm';
 function Admin({user, handleLogin, company, handleCompany}) {
 
     const initialState = {users: false, containers: false, companies: false};
-    const [isOpen, setIsOpen] = useState(initialState);
-
-    const toggle = (field) => {
-        setIsOpen({...initialState, [field]: !isOpen[field]});
-    };
+    const [toggle, isOpen] = useToggle(initialState);
 
     return (
         <div>

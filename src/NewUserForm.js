@@ -4,7 +4,7 @@ import { useHandleChange, useErrors, useToast } from './hooks';
 import Errors from './Errors';
 import Api from './Api';
 
-function NewUserForm({company}) {
+function NewUserForm({company, addUser}) {
 
     const initialState = {id: '', firstName: '', lastName: '',
                         email: '', password: ''};
@@ -27,6 +27,7 @@ function NewUserForm({company}) {
         try {
             const newUser = compile();
             await Api.addUser(newUser, company.companyCode);
+            addUser(newUser);
             setData(initialState);
             toast('User added');
         } catch (er) {
@@ -87,7 +88,7 @@ function NewUserForm({company}) {
                 <Form.Control type='text'
                             name='id'
                             id='id'
-                            placeholder='User Id'
+                            placeholder='User ID'
                             value={data.id}
                             onChange={handleChange} />
                 <Form.Control type='text'

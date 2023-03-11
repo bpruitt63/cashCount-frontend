@@ -62,6 +62,11 @@ class Api {
         const res = await this.request(`containers/${companyCode}/new`, data, 'post');
         return res.container;
     };
+
+    static async getUsers(companyCode) {
+        const res = await this.request(`users/${companyCode}`);
+        return res.users;
+    };
 };
 
 Api.token = localStorage.getItem("token");
