@@ -4,7 +4,7 @@ import { useToggle } from './hooks';
 import LoginForm from './LoginForm';
 import SuperAdmin from './SuperAdmin';
 import Users from './Users';
-import ContainerForm from './ContainerForm';
+import Containers from './Containers';
 
 function Admin({user, handleLogin, company, handleCompany}) {
 
@@ -41,8 +41,8 @@ function Admin({user, handleLogin, company, handleCompany}) {
             {user && isOpen.users &&
                 <Users company={company}/>}
             {user && isOpen.containers &&
-                <ContainerForm company={company}
-                                handleCompany={handleCompany}/>}
+                <Containers company={company}
+                            handleCompany={handleCompany}/>}
             {isOpen.companies &&
                 <SuperAdmin />}
         </div>
