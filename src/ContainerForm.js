@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Row, Col, InputGroup} from 'react-bootstrap';
 import { useHandleChange, useErrors, useToast } from './hooks';
 import Errors from './Errors';
 import Api from './Api';
 
 function ContainerForm({company, handleCompany}) {
 
-    const initialState = {name: '', target: 0, posThreshold: 0, negThreshold: 0};
+    const initialState = {name: '', target: 0.00, posThreshold: 0.00, negThreshold: 0.00};
     const [data, handleChange, setData] = useHandleChange(initialState);
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
@@ -25,7 +25,7 @@ function ContainerForm({company, handleCompany}) {
             setErrors({error: 'Container name cannot exceed 50 characters'});
             return false;
         };
-        
+
         try {
             const container = {name: data.name, target: +data.target,
                                 posThreshold: +data.posThreshold, negThreshold: + data.negThreshold};
@@ -48,38 +48,79 @@ function ContainerForm({company, handleCompany}) {
 
     return (
         <Form onSubmit={handleSubmit}>
+            <h5 className='formTitle'>New Container</h5>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
             {message && <p className='toastMsg'>{message}</p>}
-            <Form.Label>Name</Form.Label>
-            <Form.Control type='text'
-                            name='name'
-                            id='name'
-                            placeholder='Name'
-                            value={data.name}
-                            onChange={handleChange} />
-            <Form.Label>Target Amount</Form.Label>
-            <Form.Control type='number'
-                            min='0'
-                            name='target'
-                            id='target'
-                            value={data.target}
-                            onChange={handleChange} />
-            <Form.Label>Positive Threshold</Form.Label>
-            <Form.Control type='number'
-                            min='0'
-                            name='posThreshold'
-                            id='posThreshold'
-                            value={data.posThreshold}
-                            onChange={handleChange} />
-            <Form.Label>Negative Threshold</Form.Label>
-            <Form.Control type='number'
-                            min='0'
-                            name='negThreshold'
-                            id='negThreshold'
-                            value={data.negThreshold}
-                            onChange={handleChange} />
-            <Button type='submit'>Submit</Button>
+            <Row className='countFormRow'>
+                <Col md={4} xl={{span: 2, offset: 1}}>
+                    <Form.Label>Name</Form.Label>
+                </Col>
+                <Col md={8}>
+                    <Form.Control type='text'
+                                name='name'
+                                id='name'
+                                placeholder='Name'
+                                value={data.name}
+                                onChange={handleChange} />
+                </Col>
+            </Row>
+            <Row className='countFormRow'>
+                <Col md={4} xl={{span: 2, offset: 1}}>
+                    <Form.Label>Target Amount</Form.Label>
+                </Col>
+                <Col md={8}>
+                    <InputGroup>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control type='number'
+                                        min='0'
+                                        name='target'
+                                        step='.01'
+                                        id='target'
+                                        value={data.target}
+                                        onChange={handleChange} />
+                    </InputGroup>
+                </Col>
+            </Row>
+            <Row className='countFormRow'>
+                <Col md={4} xl={{span: 2, offset: 1}}>
+                    <Form.Label>Positive Threshold</Form.Label>
+                </Col>
+                <Col md={8}>
+                    <InputGroup>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control type='number'
+                                        min='0'
+                                        name='posThreshold'
+                                        step='.01'
+                                        id='posThreshold'
+                                        value={data.posThreshold}
+                                        onChange={handleChange} />
+                    </InputGroup>
+                </Col>
+            </Row>
+            <Row className='countFormRow'>
+                <Col md={4} xl={{span: 2, offset: 1}}>
+                    <Form.Label>Negative Threshold</Form.Label>
+                </Col>
+                <Col md={8}>
+                    <InputGroup>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control type='number'
+                                        min='0'
+                                        name='negThreshold'
+                                        step='.01'
+                                        id='negThreshold'
+                                        value={data.negThreshold}
+                                        onChange={handleChange} />
+                    </InputGroup>
+                </Col>
+            </Row>
+            <Button variant='info'
+                    type='submit'
+                    className='formSubmit'>
+                Save Container
+            </Button>
         </Form>
     );
 };

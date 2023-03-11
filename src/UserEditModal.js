@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Modal, Button, Form} from 'react-bootstrap';
+import {Modal, Button, Form, Row, Col} from 'react-bootstrap';
 import Errors from './Errors';
 import { useErrors, useHandleChange, useToast } from './hooks';
 import Api from './Api';
@@ -31,7 +31,8 @@ function UserEditModal({user, closeModal, editUser}) {
         setErrors({});
         setApiErrors({});
 
-        if (!validate) return false;
+        if (!validate()) return false;
+
         try {
             const userToUpdate = compile();
             setDisabledButtons(true);
@@ -43,6 +44,7 @@ function UserEditModal({user, closeModal, editUser}) {
             }, 1250);
         } catch (err) {
             getApiErrors(err);
+            setDisabledButtons(false);
         };
     };
 
@@ -86,56 +88,88 @@ function UserEditModal({user, closeModal, editUser}) {
                 <Errors formErrors={errors}
                         apiErrors={apiErrors} />
                 {message && <p className='toastMsg'>{message}</p>}
-                <Form.Switch checked={switches.companyAdmin}
-                            id='adminSwitch'
-                            label={switches.companyAdmin ? 'Admin' : 'Basic User'}
-                            onChange={() => handleSwitch('companyAdmin')} />
-                <Form.Switch checked={switches.active}
-                            id='activeSwitch'
-                            disabled={switches.companyAdmin}
-                            label={switches.active ? 'Active' : 'Inactive'}
-                            onChange={() => handleSwitch('active')} />
+                <Row className='countFormRow'>
+                    <Col md={{span: 6, offset: 3}}>
+                        <Form.Switch checked={switches.companyAdmin}
+                                id='adminSwitch'
+                                label={switches.companyAdmin ? 'Admin' : 'Basic User'}
+                                onChange={() => handleSwitch('companyAdmin')} />
+                    </Col>
+                </Row>
+                <Row className='countFormRow'>
+                    <Col md={{span: 6, offset: 3}}>
+                        <Form.Switch checked={switches.active}
+                                id='activeSwitch'
+                                disabled={switches.companyAdmin}
+                                label={switches.active ? 'Active' : 'Inactive'}
+                                onChange={() => handleSwitch('active')} />
+                    </Col>
+                </Row>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Control type='text'
-                                name='firstName'
-                                id='firstName'
-                                placeholder='First Name'
-                                value={data.firstName}
-                                onChange={handleChange} />
-                    <Form.Control type='text'
-                                name='lastName'
-                                id='lastName'
-                                placeholder='Last Name'
-                                value={data.lastName}
-                                onChange={handleChange} />
+                    <Row className='countFormRow'>
+                        <Col md={{span: 10, offset:1}}>
+                            <Form.Control type='text'
+                                    name='firstName'
+                                    id='firstName'
+                                    placeholder='First Name'
+                                    value={data.firstName}
+                                    onChange={handleChange} />
+                        </Col>
+                    </Row>
+                    <Row className='countFormRow'>
+                        <Col md={{span: 10, offset:1}}>
+                            <Form.Control type='text'
+                                    name='lastName'
+                                    id='lastName'
+                                    placeholder='Last Name'
+                                    value={data.lastName}
+                                    onChange={handleChange} />
+                        </Col>
+                    </Row>
                     {switches.companyAdmin && 
                         <>
-                        <Form.Control type='text'
-                                name='email'
-                                id='email'
-                                placeholder='Email'
-                                value={data.email}
-                                onChange={handleChange} />
-                        <Form.Control type='password'
-                                name='password'
-                                id='password'
-                                placeholder='New Password'
-                                value={data.password}
-                                onChange={handleChange} />
-                        <Form.Control type='password'
-                                name='password2'
-                                id='password2'
-                                placeholder='Retype New Password'
-                                value={data.password2}
-                                onChange={handleChange} />
-                        <Form.Switch checked={switches.emailReceiver}
-                                id='emailReceiver'
-                                label={switches.emailReceiver ? 'Receive variance emails' : "Don't receive variance emails"}
-                                onChange={() => handleSwitch('emailReceiver')} />
+                        <Row className='countFormRow'>
+                            <Col md={{span: 10, offset:1}}>
+                                <Form.Control type='text'
+                                    name='email'
+                                    id='email'
+                                    placeholder='Email'
+                                    value={data.email}
+                                    onChange={handleChange} />
+                            </Col>
+                        </Row>
+                        <Row className='countFormRow'>
+                            <Col md={{span: 10, offset:1}}>
+                                <Form.Control type='password'
+                                    name='password'
+                                    id='password'
+                                    placeholder='New Password'
+                                    value={data.password}
+                                    onChange={handleChange} />
+                            </Col>
+                        </Row>
+                        <Row className='countFormRow'>
+                            <Col md={{span: 10, offset:1}}>
+                                <Form.Control type='password'
+                                    name='password2'
+                                    id='password2'
+                                    placeholder='Retype New Password'
+                                    value={data.password2}
+                                    onChange={handleChange} />
+                            </Col>
+                        </Row>
+                        <Row className='countFormRow'>
+                            <Col md={{span: 6, offset: 3}}>
+                                <Form.Switch checked={switches.emailReceiver}
+                                    id='emailReceiver'
+                                    label={switches.emailReceiver ? 'Receive variance emails' : "Don't receive variance emails"}
+                                    onChange={() => handleSwitch('emailReceiver')} />
+                            </Col>
+                        </Row>
                         </>}
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='modalFooter'>
                 <Button variant='dark'
                         onClick={closeModal}
                         disabled={disabledButtons}>

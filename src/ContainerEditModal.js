@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Modal, Button, Form} from 'react-bootstrap';
+import {Modal, Button, Form, Row, Col, InputGroup} from 'react-bootstrap';
 import Errors from './Errors';
 import { useErrors, useHandleChange, useToast } from './hooks';
 import Api from './Api';
@@ -33,6 +33,7 @@ function ContainerEditModal({containerId, closeModal, company, handleCompany}) {
         try {
             const containerData = {name: data.name, target: +data.target,
                                 posThreshold: +data.posThreshold, negThreshold: + data.negThreshold};
+            setDisabledButtons(true);
             const result = await Api.updateContainer(containerId, company.companyCode, containerData);
             const updatedContainer = {name: result.name, 
                                     target: result.target,
@@ -58,37 +59,73 @@ function ContainerEditModal({containerId, closeModal, company, handleCompany}) {
                         apiErrors={apiErrors} />
                 {message && <p className='toastMsg'>{message}</p>}
                 <Form>
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type='text'
-                                    name='name'
-                                    id='name'
-                                    placeholder='Name'
-                                    value={data.name}
-                                    onChange={handleChange} />
-                    <Form.Label>Target Amount</Form.Label>
-                    <Form.Control type='number'
-                                    min='0'
-                                    name='target'
-                                    id='target'
-                                    value={data.target}
-                                    onChange={handleChange} />
-                    <Form.Label>Positive Threshold</Form.Label>
-                    <Form.Control type='number'
-                                    min='0'
-                                    name='posThreshold'
-                                    id='posThreshold'
-                                    value={data.posThreshold}
-                                    onChange={handleChange} />
-                    <Form.Label>Negative Threshold</Form.Label>
-                    <Form.Control type='number'
-                                    min='0'
-                                    name='negThreshold'
-                                    id='negThreshold'
-                                    value={data.negThreshold}
-                                    onChange={handleChange} />
+                    <Row className='countFormRow'>
+                        <Col md={5}>
+                            <Form.Label>Name</Form.Label>
+                        </Col>
+                        <Col md={7}>
+                            <Form.Control type='text'
+                                        name='name'
+                                        id='name'
+                                        placeholder='Name'
+                                        value={data.name}
+                                        onChange={handleChange} />
+                        </Col>
+                    </Row>
+                    <Row className='countFormRow'>
+                        <Col md={5}>
+                            <Form.Label>Target Amount</Form.Label>
+                        </Col>
+                        <Col md={7}>
+                            <InputGroup>
+                                <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control type='number'
+                                        min='0'
+                                        name='target'
+                                        step='.01'
+                                        id='target'
+                                        value={data.target}
+                                        onChange={handleChange} />
+                            </InputGroup>
+                        </Col>
+                    </Row>
+                    <Row className='countFormRow'>
+                        <Col md={5}>
+                            <Form.Label>Positive Threshold</Form.Label>
+                        </Col>
+                        <Col md={7}>
+                            <InputGroup>
+                                <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control type='number'
+                                        min='0'
+                                        name='posThreshold'
+                                        step='.01'
+                                        id='posThreshold'
+                                        value={data.posThreshold}
+                                        onChange={handleChange} />
+                            </InputGroup>
+                        </Col>
+                    </Row>
+                    <Row className='countFormRow'>
+                        <Col md={5}>
+                            <Form.Label>Negative Threshold</Form.Label>
+                        </Col>
+                        <Col md={7}>
+                            <InputGroup>
+                                <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control type='number'
+                                        min='0'
+                                        name='negThreshold'
+                                        step='.01'
+                                        id='negThreshold'
+                                        value={data.negThreshold}
+                                        onChange={handleChange} />
+                            </InputGroup>
+                        </Col>
+                    </Row>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='modalFooter'>
                 <Button variant='dark'
                         onClick={closeModal}
                         disabled={disabledButtons}>

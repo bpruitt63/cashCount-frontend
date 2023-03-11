@@ -65,3 +65,15 @@ body {
 .nestedButtonGroup {
     margin: 20px 0px;
 }
+
+.modalFooter {
+    justify-content: space-around;
+}
+
+.formSubmit {
+    margin: 25px 0px;
+}
+
+.formTitle {
+    margin-bottom: 20px;
+}
