@@ -41,7 +41,7 @@ body {
 }
 
 .adminTools {
-    border: 1px solid gray;
+    border: 1px solid lightslategrey;
     border-radius: 10px;
     margin-bottom: 20px;
     padding-top: 15px;
@@ -49,4 +49,31 @@ body {
 
 .adminToolsButton {
     margin-bottom: 15px;
+}
+
+.adminButtonGroup {
+    margin-bottom: 20px;
+}
+
+.nestedTools {
+    border: 1px solid #54B4D3;
+    border-radius: 10px;
+    margin: 0px 25px 20px;
+    padding: 0px 30px;
+}
+
+.nestedButtonGroup {
+    margin: 20px 0px;
+}
+
+.modalFooter {
+    justify-content: space-around;
+}
+
+.formSubmit {
+    margin: 25px 0px;
+}
+
+.formTitle {
+    margin-bottom: 20px;
 }
