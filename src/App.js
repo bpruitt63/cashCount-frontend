@@ -34,16 +34,30 @@ function App() {
 	};
 
 	return (
-		<Container>
-			<div className="App">
-				<Home user={user}
-						company={company}
-						handleLogin={handleLogin}
-						handleCompany={handleCompany}
-						logoutCompany={logoutCompany}
-						logoutUser={logoutUser} />
+		<div className='app'>
+			<Container>
+				<div className='content'>
+					<Home user={user}
+							company={company}
+							handleLogin={handleLogin}
+							handleCompany={handleCompany}
+							logoutCompany={logoutCompany}
+							logoutUser={logoutUser} />
+				</div>
+			</Container>
+			<div className='logoutButtons'>
+				{user &&
+					<button className='logoutButton' 
+							onClick={logoutUser}>
+						Admin Logout
+					</button>}
+				{company && 
+					<button className='logoutButton' 
+							onClick={logoutCompany}>
+						Company Logout
+					</button>}
 			</div>
-		</Container>
+		</div>
 	);
 };
 

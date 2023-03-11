@@ -1,4 +1,18 @@
 body {
+    background-size: cover;
+    text-align: center;
+}
+
+#root {
+    min-height: 100vh;
+    position: relative;
+}
+
+.content {
+    padding-bottom: 3rem;
+}
+
+.app {
     text-align: center;
 }
 
@@ -88,6 +102,10 @@ body {
 
 .logoutButtons {
     text-align: right;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 3rem;
 }
 
 .companyLoginForm {
