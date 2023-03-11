@@ -99,7 +99,7 @@ function CountListForm({company}) {
                 {Object.keys(containers).map(c =>
                     <Row key={`container${c}`}
                             className='countFormRow'>
-                        <Col md={{span: 3, offset: 4}}>
+                        <Col md={{span: 4, offset: 4}}>
                             <Form.Check type='checkbox'
                                     id={`container${c}`}
                                     label={company.containers[c].name}
