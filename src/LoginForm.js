@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Form, Button, Row, Col} from 'react-bootstrap';
 import { useHandleChange, useErrors } from './hooks';
 import Errors from './Errors';
 import Api from './Api';
@@ -37,21 +38,35 @@ function LoginForm({handleLogin}) {
 
     return (
         <div>
+            <h5>Login</h5>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            <form onSubmit={handleSubmit}>
-                <input type='text'
-                        name='id'
-                        placeholder='User Id'
-                        value={data.id}
-                        onChange={handleChange} />
-                <input type='password'
-                        name='password'
-                        placeholder='Password'
-                        value={data.password}
-                        onChange={handleChange} />
-                <button type='submit'>Login</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <Row className='countFormRow'>
+                    <Col md={{span: 8, offset: 2}}>
+                        <Form.Control type='text'
+                                name='id'
+                                placeholder='User Id'
+                                value={data.id}
+                                onChange={handleChange} />
+                    </Col>
+                </Row>
+                <Row className='countFormRow'>
+                    <Col md={{span: 8, offset: 2}}>
+                        <Form.Control type='password'
+                                name='password'
+                                placeholder='Password'
+                                value={data.password}
+                                onChange={handleChange}
+                                className='countFormRow' />
+                    </Col>
+                </Row>
+                <Button variant='dark'
+                        type='submit'
+                        className='formSubmit'>
+                    Login
+                </Button>
+            </Form>
         </div>
     );
 };

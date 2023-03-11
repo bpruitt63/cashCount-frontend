@@ -13,13 +13,13 @@ function Admin({user, handleLogin, company, handleCompany}) {
 
     return (
         <div>
-            <h4>Admin Tools</h4>
+            <h4 className='formTitle'>Admin Tools</h4>
             {!user && 
                 <LoginForm handleLogin={handleLogin}/>}
             {user && !user.superAdmin && !company &&
                 <p>Please sign in company to proceed</p>}
             <ButtonGroup className='adminButtonGroup'>
-                {company &&
+                {user && company &&
                     <>
                         <Button variant={isOpen.users ? 'outline-secondary' : 'secondary'}
                                 onClick={() => toggle('users')}>

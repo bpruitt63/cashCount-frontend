@@ -45,9 +45,11 @@ function Home({user, company, handleLogin, handleCompany, logoutCompany, logoutU
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
             {!company &&
-                <CompanyNameForm handleChange={handleCompanyChange}
-                                handleSubmit={submitCompany}
-                                data={companyData}/>}
+                <div className='companyLoginForm'>
+                    <CompanyNameForm handleChange={handleCompanyChange}
+                                    handleSubmit={submitCompany}
+                                    data={companyData}/>
+                </div>}
             {company &&
                 <Main company={company}/>}
             <div className={isOpen.admin ? 'adminTools' : ''}>

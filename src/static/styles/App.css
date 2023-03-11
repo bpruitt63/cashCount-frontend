@@ -89,3 +89,7 @@ body {
 .logoutButtons {
     text-align: right;
 }
+
+.companyLoginForm {
+    margin: 90px 0px;
+}
