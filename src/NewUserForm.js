@@ -17,7 +17,7 @@ function NewUserForm({company, addUser}) {
 
     const handleSwitch = (field) => {
         const updatedSwitches = {...switches, [field]: !switches[field]};
-        if (updatedSwitches.companyAdmin) updatedSwitches.active = true;
+        if (updatedSwitches.admin) updatedSwitches.active = true;
         setSwitch(updatedSwitches);
     };
 
