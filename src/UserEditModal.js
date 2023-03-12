@@ -31,6 +31,7 @@ function UserEditModal({user, closeModal, editUser}) {
         setErrors({});
         setApiErrors({});
 
+        if (!preserveDemoUser()) return false;
         if (!validate()) return false;
 
         try {
@@ -46,6 +47,14 @@ function UserEditModal({user, closeModal, editUser}) {
             getApiErrors(err);
             setDisabledButtons(false);
         };
+    };
+
+    const preserveDemoUser = () => {
+        if (user.id === 'demo') {
+            setErrors({demo: 'Demo user cannot be edited'});
+            return false;
+        };
+        return true;
     };
 
 
