@@ -14,4 +14,4 @@ A sample account exists for anyone interested in trying it out.  The sample comp
 ###Tech
 The frontend was built using hooks based React, initialized with Create React App. Styling and responsiveness are done primarily using React Bootstrap, along with some pretty basic CSS files.
 
-The backend is also deployed on Heroku. The backend was built using Node.js with Express, with a PostgreSQL database. Backend files are available at [cashCount-backend](https://github.com/bpruitt63/cashCount-backend)
+The backend is also deployed on Heroku. The backend was built using Node.js with Express, with a PostgreSQL database. Email functionality uses SendGrid email API. Backend files are available at [cashCount-backend](https://github.com/bpruitt63/cashCount-backend)
