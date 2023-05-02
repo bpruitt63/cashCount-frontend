@@ -77,6 +77,11 @@ class Api {
         const res = await this.request(`containers/${containerId}/company/${companyCode}`, data, 'patch');
         return res.container;
     };
+
+    static async resetPassword(userId, data) {
+        const res = await this.request(`users/${userId}/reset_password`, data, 'patch');
+        return res.user;
+    };
 };
 
 Api.token = localStorage.getItem("token");
